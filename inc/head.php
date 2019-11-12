@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -12,6 +13,7 @@
     <link rel="stylesheet" type="text/css" href="assets/styles.css"/>
 </head>
 <body>
+
 <header>
     <!-- MENU ENTETE -->
     <nav class="navbar navbar-default navbar-fixed-top">
@@ -28,6 +30,14 @@
                 <a class="navbar-brand" href="/">
                     <img class="pull-left" src="assets/img/cookie_funny_clipart.png" alt="The Cookies Factory logo">
                     <h1>The Cookies Factory</h1>
+                </a>
+                <?php if (!isset($_SESSION['name']))
+
+                '<a class="navbar-brand" href="/login.php">
+                    <h1>LOG IN</h1>
+                </a>'?>
+                <a class="navbar-brand" href="/logout.php">
+                    <h1>LOG OUT</h1>
                 </a>
             </div>
 
@@ -48,6 +58,8 @@
         </div><!-- /.container-fluid -->
     </nav>
     <div class="container-fluid text-right">
-        <strong>Hello Wilder !</strong>
+        <strong>Hello <?php if (isset ($_SESSION['name'])){
+                            echo $_SESSION['name'];
+                            }  ?> !</strong>
     </div>
 </header>

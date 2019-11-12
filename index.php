@@ -1,4 +1,23 @@
+<?php session_start();
+if (!isset($_SESSION["name"]))
+{
+    header("Location: login.php");
+} ?>
 <?php require 'inc/data/products.php'; ?>
+<?php
+if (array_key_exists('add_to_cart', $_GET)) {
+    $id = $_GET['add_to_cart'];
+   if (isset($_COOKIE["panier"]) && isset($_COOKIE["panier"][$id])) {
+       $data = unserialize($_COOKIE["panier"][$id]);
+       $data['quantity']++;
+       setcookie("panier[$id]", serialize($data));
+    } else {
+       setcookie("panier[$id]", serialize(['quantity' => 1, 'product' => $catalog[$id]]));
+    }
+}
+
+?>
+
 <?php require 'inc/head.php'; ?>
 <section class="cookies container-fluid">
     <div class="row">
@@ -9,9 +28,9 @@
                     <figcaption class="caption">
                         <h3><?= $cookie['name']; ?></h3>
                         <p><?= $cookie['description']; ?></p>
-                        <a href="?add_to_cart=<?= $id; ?>" class="btn btn-primary">
-                            <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Add to cart
-                        </a>
+                                <a href="?add_to_cart=<?= $id; ?>" class="btn btn-primary">
+                                <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>Add to cart
+                                </a>
                     </figcaption>
                 </figure>
             </div>
